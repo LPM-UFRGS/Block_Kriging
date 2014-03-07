@@ -1,0 +1,104 @@
+; getting variables from CMAKE
+!define INSTALLER_OUTFILE_NAME "@CPACK_NSIS_INSTALLER_OUTFILE_NAME@"
+!define PLUGIN_BINARY_DIR "@CPACK_NSIS_AR2GEMS_PLUGIN_BINARY_DIR@"
+; getting variables from CMAKE
+
+Name ${INSTALLER_OUTFILE_NAME}
+    
+# General Symbol Definitions
+!define REGKEY "SOFTWARE\$(^Name)"
+
+; include for some of the windows messages defines
+!include "winmessages.nsh"
+; HKLM (all users) vs HKCU (current user) defines
+!define env_hklm 'HKU  "SYSTEM\CurrentControlSet\Control\Session Manager\Environment"'
+!define env_hkcu 'HKCU "Environment"'
+;!define GSTLAPPLIHOME "GSTLAPPLIHOME"
+
+
+# MUI Symbol Definitions
+;!define MUI_ICON "${AR2GEMS_SOURCE_DIR}\WinGsTLAppli\main\ar2gems_icon_256x256.ico"
+!define MUI_FINISHPAGE_NOAUTOCLOSE
+!define MUI_UNFINISHPAGE_NOAUTOCLOSE
+
+# Included files
+!include Sections.nsh
+!include MUI2.nsh
+
+
+# Variables
+Var StartMenuGroup
+
+# Installer pages
+!insertmacro MUI_PAGE_WELCOME
+;!insertmacro MUI_PAGE_LICENSE ${AR2GEMS_SOURCE_DIR}\LICENSE-ar2tech.txt
+!insertmacro MUI_PAGE_DIRECTORY
+!insertmacro MUI_PAGE_INSTFILES
+!insertmacro MUI_PAGE_FINISH
+!insertmacro MUI_UNPAGE_CONFIRM
+!insertmacro MUI_UNPAGE_INSTFILES
+
+# Installer languages
+!insertmacro MUI_LANGUAGE English
+!insertmacro MUI_LANGUAGE French
+!insertmacro MUI_LANGUAGE Italian
+!insertmacro MUI_LANGUAGE German
+
+# Installer attributes
+OutFile ${INSTALLER_OUTFILE_NAME}.exe
+InstallDirRegKey HKLM "SOFTWARE\Wow6432Node\SGeMS-ar2Tech-beta-x64" "Path"
+CRCCheck on
+XPStyle on
+ShowInstDetails hide
+VIProductVersion 2.5.0.0
+VIAddVersionKey /LANG=${LANG_ENGLISH} ProductName SGeMS-beta
+VIAddVersionKey /LANG=${LANG_ENGLISH} ProductVersion "${VERSION}"
+VIAddVersionKey /LANG=${LANG_ENGLISH} CompanyWebsite "${URL}"
+VIAddVersionKey /LANG=${LANG_ENGLISH} FileVersion "${VERSION}"
+VIAddVersionKey /LANG=${LANG_ENGLISH} FileDescription ""
+VIAddVersionKey /LANG=${LANG_ENGLISH} LegalCopyright ""
+;InstallDirRegKey HKLM "${REGKEY}" Path
+ShowUninstDetails hide
+
+# Installer sections
+Section "Main" SEC0000
+    SetOverwrite on
+
+    SetOutPath $INSTDIR\plugins\designer      
+    File /nonfatal ${PLUGIN_BINARY_DIR}\designer\*.dll
+    SetOutPath $INSTDIR\plugins\Geostat 
+    File /nonfatal ${PLUGIN_BINARY_DIR}\Geostat\*.dll
+
+SectionEnd
+
+
+# Macro for selecting uninstaller sections
+!macro SELECT_UNSECTION SECTION_NAME UNSECTION_ID
+    Push $R0
+    ReadRegStr $R0 HKLM "${REGKEY}\Components" "${SECTION_NAME}"
+    StrCmp $R0 1 0 next${UNSECTION_ID}
+    !insertmacro SelectSection "${UNSECTION_ID}"
+    GoTo done${UNSECTION_ID}
+next${UNSECTION_ID}:
+    !insertmacro UnselectSection "${UNSECTION_ID}"
+done${UNSECTION_ID}:
+    Pop $R0
+!macroend
+
+
+
+# Installer functions
+Function .onInit
+    InitPluginsDir
+    StrCpy $StartMenuGroup $(^Name)
+    Push $R1
+    ;File /oname=$PLUGINSDIR\spltmp.bmp ${AR2GEMS_SOURCE_DIR}\WinGsTLAppli\main\ar2gems_splash.bmp
+    ;advsplash::show 1000 600 400 -1 $PLUGINSDIR\spltmp
+    Pop $R1
+    Pop $R1
+FunctionEnd
+
+
+
+
+

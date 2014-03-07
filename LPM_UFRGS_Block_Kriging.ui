@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>261</width>
+    <height>724</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="AlgorithmCategory" stdset="0">
+   <string>LPM_UFRGS</string>
+  </property>
+  <property name="AlgorithmDescription" stdset="0">
+   <string>Block_kriging</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_6">
+   <item row="0" column="0">
+    <widget class="QGroupBox" name="groupBox_5">
+     <property name="title">
+      <string>Point Samples</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_5">
+      <item row="0" column="0">
+       <widget class="PropertySelectorNoRegion" name="Location_And_Value_Of_The_Point_Samples"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>No Nugget Effect</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Variogram Model</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>Isotropic Model</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>Number of Structures: 1</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>Type of Structure 1: Spherical</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="6" column="0">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Kriging Option</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QComboBox" name="Kriging_Option">
+        <item>
+         <property name="text">
+          <string>Simple Kriging</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Ordinary Kriging</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QGroupBox" name="groupBox_6">
+     <property name="title">
+      <string>Block Sample</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_4">
+      <item row="2" column="0">
+       <widget class="QDoubleSpinBox" name="Block_Value"/>
+      </item>
+      <item row="0" column="0">
+       <widget class="GridSelectorBasic" name="Location_Of_The_Block_Sample"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Block Value</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QGroupBox" name="Contribution_Of_The_Variogram">
+     <property name="title">
+      <string>C1</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QDoubleSpinBox" name="Contribution_Variogram"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="7" column="0">
+    <widget class="QGroupBox" name="groupBox_3">
+     <property name="title">
+      <string>Simple Kriging Mean</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="0">
+       <widget class="QDoubleSpinBox" name="Simple_Kriging_Mean">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>New Property Name</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_7">
+      <item row="0" column="0">
+       <widget class="QLineEdit" name="Property_Which_Will_Receive_The_Estimates"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QGroupBox" name="Range">
+     <property name="title">
+      <string>Range</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QDoubleSpinBox" name="Range_Of_The_Variogram"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+  <zorder>Contribution_Of_The_Variogram</zorder>
+  <zorder>Range</zorder>
+  <zorder>groupBox_3</zorder>
+  <zorder>groupBox</zorder>
+  <zorder>groupBox_5</zorder>
+  <zorder>groupBox_6</zorder>
+  <zorder>groupBox_2</zorder>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>GridSelectorBasic</class>
+   <extends>QComboBox</extends>
+   <header>qtplugins/selectors.h</header>
+  </customwidget>
+  <customwidget>
+   <class>PropertySelectorNoRegion</class>
+   <extends>QWidget</extends>
+   <header>qtplugins/selectors.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
