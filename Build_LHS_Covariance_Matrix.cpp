@@ -1,3 +1,6 @@
+/*
+Author: Marcel Bassani
+*/
 # include "Covariance_Point_Point.h"
 # include "Covariance_Point_Block.h"
 # include "Covariance_Block_Block.h"
@@ -24,10 +27,10 @@ vector<vector<double> > Build_LHS_Covariance_Matrix(const std::vector<std::vecto
 			double covariance_sample_point_sample_block = Covariance_Point_Block(samples[j][0], samples[j][1], samples[j][2], block, range, contribution);
 			LHS_Covariance_Matrix[j].push_back(covariance_sample_point_sample_block);
 	}
-		
-	
+
+
 	// Add the Covariance_Block-Point (last Row) to the LHS_Covariance_Matrix or Covariance Block-Block
-	
+
 	int Numero_De_Blocos = 1;
 	vector<double> last_row_lhs_cova_matrix; // create last row of the LHS_Covariance_Matrix
 	for(size_t j = 0; j < (samples.size() + Numero_De_Blocos); ++j){
@@ -52,9 +55,9 @@ vector<vector<double> > Build_LHS_Covariance_Matrix(const std::vector<std::vecto
 			LHS_Covariance_Matrix[i].push_back(Um);
 		}
 		//Complete last row of the LHS_Covariance_Matrix
-		
+
 		vector<double> last_row_LHS_cova_matrix_ordinary_kriging;
-		
+
 		for (size_t j = 0; j < LHS_Covariance_Matrix[0].size(); ++ j){
 			double Zero = 0.00;
 			double Um = 1.00;
@@ -69,11 +72,10 @@ vector<vector<double> > Build_LHS_Covariance_Matrix(const std::vector<std::vecto
 
 
 	}
-	
-	
-	
-	
+
+
+
+
 	return LHS_Covariance_Matrix;
 
 }
-	
